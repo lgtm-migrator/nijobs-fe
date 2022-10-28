@@ -11,6 +11,7 @@ import {
     setFields,
     setShowJobDurationSlider,
     setTechs,
+    hideOffer,
 } from "../../../actions/searchOffersActions";
 import { INITIAL_JOB_TYPE, INITIAL_JOB_DURATION } from "../../../reducers/searchOffersReducer";
 
@@ -49,6 +50,7 @@ export const AdvancedSearchController = ({
         technologies,
         setTechs,
         resetAdvancedSearchFields,
+        hideOffer,
     });
 
     const { search: searchOffers } = useOffersSearcher({
@@ -100,7 +102,7 @@ export const SearchArea = ({ onSubmit, searchValue,
         {
             enableAdvancedSearchDefault, showJobDurationSlider, setShowJobDurationSlider, jobMinDuration,
             jobMaxDuration, setJobDuration, jobType, setJobType, fields, setFields, technologies, setTechs,
-            resetAdvancedSearchFields, onSubmit, searchValue, setSearchValue, onMobileClose,
+            resetAdvancedSearchFields, hideOffer,  onSubmit, searchValue, setSearchValue, onMobileClose,
         },
         AdvancedSearchControllerContext
     );
