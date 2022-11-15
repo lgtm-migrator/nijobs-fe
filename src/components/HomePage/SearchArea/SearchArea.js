@@ -12,6 +12,7 @@ import {
     setShowJobDurationSlider,
     setTechs,
     hideOffer,
+    setShowHidden,
 } from "../../../actions/searchOffersActions";
 import { INITIAL_JOB_TYPE, INITIAL_JOB_DURATION } from "../../../reducers/searchOffersReducer";
 
@@ -33,7 +34,8 @@ export const AdvancedSearchControllerContext = React.createContext({});
 export const AdvancedSearchController = ({
     enableAdvancedSearchDefault, showJobDurationSlider, setShowJobDurationSlider, jobMinDuration,
     jobMaxDuration, setJobDuration, jobType, setJobType, fields, setFields, technologies, setTechs,
-    resetAdvancedSearchFields, onSubmit, searchValue, setSearchValue, onMobileClose,
+    resetAdvancedSearchFields, onSubmit, searchValue, setSearchValue, onMobileClose, showHidden,
+    setShowHidden,
 }) => {
 
     const advancedSearchProps = useAdvancedSearch({
@@ -51,6 +53,8 @@ export const AdvancedSearchController = ({
         setTechs,
         resetAdvancedSearchFields,
         hideOffer,
+        showHidden,
+        setShowHidden,
     });
 
     const { search: searchOffers } = useOffersSearcher({
@@ -60,6 +64,7 @@ export const AdvancedSearchController = ({
         jobType,
         fields,
         technologies,
+        showHidden,
     });
 
     const submitForm = useCallback((e) => {
@@ -87,7 +92,8 @@ export const AdvancedSearchController = ({
 export const SearchArea = ({ onSubmit, searchValue,
     jobMinDuration = INITIAL_JOB_DURATION, jobMaxDuration = INITIAL_JOB_DURATION + 1, jobType = INITIAL_JOB_TYPE,
     fields, technologies, showJobDurationSlider, setShowJobDurationSlider, advanced: enableAdvancedSearchDefault = false,
-    setSearchValue, setJobDuration, setJobType, setFields, setTechs, resetAdvancedSearchFields, onMobileClose }) => {
+    setSearchValue, setJobDuration, setJobType, setFields, setTechs, resetAdvancedSearchFields, onMobileClose, showHidden,
+    setShowHidden }) => {
 
     const classes = useSearchAreaStyles();
     const {
@@ -103,6 +109,7 @@ export const SearchArea = ({ onSubmit, searchValue,
             enableAdvancedSearchDefault, showJobDurationSlider, setShowJobDurationSlider, jobMinDuration,
             jobMaxDuration, setJobDuration, jobType, setJobType, fields, setFields, technologies, setTechs,
             resetAdvancedSearchFields, hideOffer,  onSubmit, searchValue, setSearchValue, onMobileClose,
+            showHidden, setShowHidden,
         },
         AdvancedSearchControllerContext
     );
@@ -163,6 +170,8 @@ SearchArea.propTypes = {
     setTechs: PropTypes.func.isRequired,
     setShowJobDurationSlider: PropTypes.func.isRequired,
     onMobileClose: PropTypes.func,
+    showHidden: PropTypes.bool,
+    setShowHidden: PropTypes.func,
     advanced: PropTypes.bool,
 };
 
@@ -174,6 +183,7 @@ export const mapStateToProps = ({ offerSearch }) => ({
     fields: offerSearch.fields,
     technologies: offerSearch.technologies,
     showJobDurationSlider: offerSearch.filterJobDuration,
+    showHidden: offerSearch.showHidden,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -183,6 +193,7 @@ export const mapDispatchToProps = (dispatch) => ({
     setFields: (fields) => dispatch(setFields(fields)),
     setTechs: (technologies) => dispatch(setTechs(technologies)),
     setShowJobDurationSlider: (val) => dispatch(setShowJobDurationSlider(val)),
+    setShowHidden: (val) => dispatch(setShowHidden(val)),
     resetAdvancedSearchFields: () => dispatch(resetAdvancedSearchFields()),
 });
 

@@ -18,6 +18,7 @@ const initialState = {
     offers: [],
     loading: false,
     error: INITIAL_ERROR,
+    showHidden: false,
 };
 
 export default (state = initialState, action) => {
@@ -107,6 +108,11 @@ export default (state = initialState, action) => {
                     new Offer({ ...offer, isHidden: false, hiddenReason: null, adminReason: null })
                     : offer
                 ) };
+        case OfferSearchTypes.SET_SHOW_HIDDEN:
+            return {
+                ...state,
+                showHidden: action.showHidden,
+            };
         default:
             return state;
     }
